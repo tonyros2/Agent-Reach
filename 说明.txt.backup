@@ -1,0 +1,281 @@
+帮我安装 Agent Reach：https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md
+
+https://lobehub.com/skills/aradotso-trending-skills-agent-reach-internet-access
+
+• Agent Reach 已安装好，agent-reach 现在可以直接用。我已经把基础链路补齐到可用状态：网页、YouTube、全网 Exa 搜索、微信 
+  公众号、Reddit、V2EX、RSS，以及 B 站基础能力都打通了；mcporter 配置也已经放回用户目录，没有留在当前项目里。          
+                                                                                                                       
+  当前有两个注意点。第一，Windows 这边有个 Python 编码问题，我已经为后续终端做了用户级修正；如果你要立刻在“当前这个终  
+  端”里用，先执行一次 "$env:PYTHONUTF8='1'"。第二，GitHub CLI 里保存的 token 现在是失效的，所以如果你要私有仓库、Issue/
+  PR 这类完整 GitHub 能力，我可以继续帮你跑 gh auth login。                                                            
+                                                                                                                       
+  还有这些可选渠道，你要哪些我可以继续装：                                                                             
+                                                                                                                       
+  - Twitter/X                                                                                                          
+  - 微博                                                                                                               
+  - 小宇宙播客
+  - 小红书
+  - Reddit 已可用
+  - B站完整版
+  - 抖音
+  - LinkedIn
+
+  直接回我比如：帮我装微博和 Twitter，或者 全部装。
+
+
+› how to provde it is installed succesfully
+
+
+• Run these in PowerShell.
+                                                                                                                       
+  For the current terminal session first set:                                                                          
+                                                                                                                       
+  $env:PYTHONUTF8='1'                                                                                                  
+                                                                                                                       
+  Then verify the install:                                                                                             
+                                                                                                                       
+  Get-Command agent-reach                                                                                              
+  agent-reach doctor                                                                                                   
+  mcporter.cmd config list                                                                                             
+  Get-Command rdt                                                                                                      
+                                                                                                                       
+  What success looks like:                                                                                             
+                                                                                                                       
+  - Get-Command agent-reach should point to c:/users/llm.local/bin/agent-reach.exe                                     
+  - mcporter.cmd config list should show exa from C:/Users/llm.mcporter/mcporter.json                                  
+  - Get-Command rdt should point to c:/users/llm.local/bin/rdt.exe                                                     
+  - agent-reach doctor should show the core channels as available                                                      
+                                                                                                                       
+  On this machine, the successful check showed these as working:                                                       
+                                                                                                                       
+  - GitHub                                                                                                             
+  - YouTube                                                                                                            
+  - Reddit                                                                                                             
+  - WeChat articles                                                                                                    
+  - V2EX                                                                                                               
+  - RSS                                                                                                                
+  - Exa web search                                                                                                     
+  - Generic web reading                                                                                                
+  - Bilibili basic support                                                                                             
+                                                                                                                       
+  If you want a single proof command, use:                                                                             
+                                                                                                                       
+  $env:PYTHONUTF8='1'; agent-reach doctor                                                                              
+                                                                                                                       
+  If you want, I can also give you a stricter end-to-end checklist with one real command per channel. 
+  
+  
+  
+  
+=============================
+
+如何使用：
+
+• agent-reach has two jobs:
+                                                                                                                       
+  1. manage channels and credentials                                                                                   
+  2. install the real tools you use day to day                                                                         
+                                                                                                                       
+  On this Windows machine, start with this in PowerShell for the current session:                                      
+                                                                                                                       
+  $env:PYTHONUTF8='1'                                                                                                  
+                                                                                                                       
+  Manage Agent Reach                                                                                                   
+  Use these commands:                                                                                                  
+                                                                                                                       
+  agent-reach doctor                                                                                                   
+  agent-reach setup                                                                                                    
+  agent-reach install --channels=twitter,weibo                                                                         
+  agent-reach configure --from-browser chrome                                                                          
+  agent-reach configure twitter-cookies "cookie_string_here"                                                           
+  agent-reach configure groq-key gsk_xxx                                                                               
+  agent-reach configure proxy http://user:pass@ip:port                                                                 
+                                                                                                                       
+  What they do:                                                                                                        
+                                                                                                                       
+  - doctor: check what works                                                                                           
+  - setup: interactive wizard                                                                                          
+  - install --channels=...: add optional platforms                                                                     
+  - configure: add cookies, keys, proxy, or import from browser                                                        
+                                                                                                                       
+  Use the installed tools
+  After setup, you usually use the upstream tools directly.                                                            
+                                                                                                                       
+  Web search via Exa:                                                                                                  
+                                                                                                                       
+  mcporter.cmd call 'exa.web_search_exa(query: "best local llm tools", numResults: 5)'                                 
+                                                                                                                       
+  Read any webpage:                                                                                                    
+                                                                                                                       
+  curl.exe https://r.jina.ai/http://example.com                                                                        
+                                                                                                                       
+  Search Reddit:                                                                                                       
+                                                                                                                       
+  rdt search "ollama vs lm studio" -n 5 --compact                                                                      
+                                                                                                                       
+  Read a Reddit post:                                                                                                  
+                                                                                                                       
+  rdt read <post_id>                                                                                                   
+                                                                                                                       
+  YouTube metadata/subtitles:                                                                                          
+                                                                                                                       
+  yt-dlp --dump-json "https://www.youtube.com/watch?v=VIDEO_ID"                                                        
+  yt-dlp --write-auto-sub --skip-download "https://www.youtube.com/watch?v=VIDEO_ID"
+                                                                                                                       
+  Bilibili basic:                                                                                                      
+                                                                                                                       
+  yt-dlp --dump-json "https://www.bilibili.com/video/BVxxxx"                                                           
+                                                                                                                       
+  A couple of Windows-specific notes:                                                                                  
+                                                                                                                       
+  - use mcporter.cmd, not mcporter, because PowerShell script execution is restricted here                             
+  - if agent-reach doctor or rdt throws encoding errors, run $env:PYTHONUTF8='1' first                                 
+  - for full GitHub features, re-auth with gh auth login                                                               
+                                                                                                                       
+  If you want, I can give you a “first 5 commands to try” workflow for your setup. 
+  
+  
+  
+=================
+
+
+验证：
+
+
+(base) PS C:\Users\llm> $env:PYTHONUTF8='1'
+(base) PS C:\Users\llm> Get-Command agent-reach
+
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Application     agent-reach.exe                                    0.0.0.0    c:\users\llm\.local\bin\agent-reach.exe
+
+
+(base) PS C:\Users\llm> agent-reach doctor
+Agent Reach 状态
+========================================
+
+✅ 装好即用：
+  [!]  GitHub 仓库和代码 — gh CLI 状态检查失败，运行 gh auth status 查看详情
+  ✅ YouTube 视频和字幕 — 可提取视频信息和字幕
+  ✅ Reddit 帖子和评论 — rdt-cli 可用（搜索帖子、阅读全文、查看评论，无需登录）
+  ✅ 微信公众号文章 — 通过 Exa 搜索和阅读微信公众号文章（免费，无需额外配置）。可选安装 Camoufox 获得更好的全文阅读效果。
+  ✅ V2EX 节点、主题与回复 — 公开 API 可用（热门主题、节点浏览、主题详情、用户信息）
+  ✅ RSS/Atom 订阅源 — 可读取 RSS/Atom 源
+  ✅ 全网语义搜索 — 全网语义搜索可用（免费，无需 API Key）
+  ✅ 任意网页 — 通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）
+
+可选渠道（已安装）：
+  ✅ B站视频、字幕和搜索 — 视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli
+
+状态：8/16 个渠道可用
+还有 7 个可选渠道可以解锁（Twitter/X 推文、小红书笔记、微博动态与热搜、小宇宙播客转文字、雪球股票行情与社区动态、抖音短视频、LinkedIn 职业社交），告诉你的 Agent「帮我装 XXX」即可
+Skill installed for Agent: C:\Users\llm/.agents/skills\agent-reach
+(base) PS C:\Users\llm> mcporter.cmd config list
+exa
+  Source: local (C:\Users\llm\.mcporter\mcporter.json)
+  Transport: http (https://mcp.exa.ai/mcp)
+
+Other sources available via --source import
+  C:\Users\llm\.cursor\mcp.json — 1 server (openalex)
+  C:\Users\llm\AppData\Roaming\Code\User\mcp.json — 1 server (sqlite)
+Use `mcporter config import <kind>` to copy them locally.
+
+Project config: C:\Users\llm\config\mcporter.json (missing)
+System config: C:\Users\llm\.mcporter\mcporter.json
+(base) PS C:\Users\llm> Get-Command rdt
+
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Application     rdt.exe                                            0.0.0.0    c:\users\llm\.local\bin\rdt.exe
+
+
+(base) PS C:\Users\llm> $env:PYTHONUTF8='1'
+(base) PS C:\Users\llm> agent-reach doctor
+Agent Reach 状态
+========================================
+
+✅ 装好即用：
+  [!]  GitHub 仓库和代码 — gh CLI 状态检查失败，运行 gh auth status 查看详情
+  ✅ YouTube 视频和字幕 — 可提取视频信息和字幕
+  ✅ Reddit 帖子和评论 — rdt-cli 可用（搜索帖子、阅读全文、查看评论，无需登录）
+  ✅ 微信公众号文章 — 通过 Exa 搜索和阅读微信公众号文章（免费，无需额外配置）。可选安装 Camoufox 获得更好的全文阅读效果。
+  ✅ V2EX 节点、主题与回复 — 公开 API 可用（热门主题、节点浏览、主题详情、用户信息）
+  ✅ RSS/Atom 订阅源 — 可读取 RSS/Atom 源
+  ✅ 全网语义搜索 — 全网语义搜索可用（免费，无需 API Key）
+  ✅ 任意网页 — 通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）
+
+可选渠道（已安装）：
+  ✅ B站视频、字幕和搜索 — 视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli
+
+状态：8/16 个渠道可用
+还有 7 个可选渠道可以解锁（Twitter/X 推文、小红书笔记、微博动态与热搜、小宇宙播客转文字、雪球股票行情与社区动态、抖音短视频、LinkedIn 职业社交），告诉你的 Agent「帮我装 XXX」即可
+Skill installed for Agent: C:\Users\llm/.agents/skills\agent-reach
+(base) PS C:\Users\llm> agent-reach setup
+
+Agent Reach Setup
+========================================
+
+【推荐】全网搜索 — Exa（通过 mcporter）
+  免费，无需 API Key
+  [!] 无法检查 Exa 配置，请手动执行：
+     mcporter config add exa https://mcp.exa.ai/mcp
+
+【可选】GitHub Token — 提高 API 限额
+  无 token: 60 次/小时 | 有 token: 5000 次/小时
+  获取: https://github.com/settings/tokens (无需任何权限)
+  GITHUB_TOKEN (回车跳过): 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
+  ✅ GitHub API 已提升至 5000 次/小时！
+
+【信息】Reddit — 通过 rdt-cli 搜索和阅读，无需配置
+  安装：pipx install rdt-cli
+
+【可选】Groq API — 视频无字幕时的语音转文字
+  免费额度，注册: https://console.groq.com
+  GROQ_API_KEY (回车跳过):
+  跳过
+
+========================================
+
+mcporter.cmd call exa.web_search_exa query="Please perform a site-wide, full-text search on https://www.startupdaily.net/ and return every article or news post whose main content (not just title) contains the keyword 'NHMRC' or 'nhmrc' or 'national health and medical research council'. List the URLs only." numResults=50
+
+
+==========================================
+
+
+(base) PS C:\Users\llm> curl.exe https://r.jina.ai/http://example.com
+Title: Example Domain
+
+URL Source: http://example.com/
+
+Published Time: Tue, 24 Mar 2026 22:06:31 GMT
+
+Warning: This page maybe not yet fully loaded, consider explicitly specify a timeout.
+
+Markdown Content:
+# Example Domain
+
+# Example Domain
+
+This domain is for use in documentation examples without needing permission. Avoid use in operations.
+
+
+================================
+yt-dlp --dump-json "https://www.youtube.com/watch?v=kqOLf7z5O-E"
+
+(base) PS C:\Users\llm> yt-dlp -f "bv*+ba/b" -o "downloads/%(title)s [%(id)s].%(ext)s" "https://www.youtube.com/watch?v=kqOLf7z5O-E"
+[youtube] Extracting URL: https://www.youtube.com/watch?v=kqOLf7z5O-E
+[youtube] kqOLf7z5O-E: Downloading webpage
+[youtube] kqOLf7z5O-E: Downloading android vr player API JSON
+[youtube] kqOLf7z5O-E: Downloading web safari player API JSON
+[youtube] kqOLf7z5O-E: Downloading player ace4b2f8-tv
+[youtube] [jsc:node] Solving JS challenges using node
+WARNING: [youtube] [jsc] Remote component challenge solver script (node) was skipped. It may be required to solve JS challenges. You can enable the download with  --remote-components ejs:github  (recommended). For more information and alternatives, refer to  https://github.com/yt-dlp/yt-dlp/wiki/EJS
+WARNING: [youtube] kqOLf7z5O-E: n challenge solving failed: Some formats may be missing. Ensure you have a supported JavaScript runtime and challenge solver script distribution installed. Review any warnings presented before this message. For more details, refer to  https://github.com/yt-dlp/yt-dlp/wiki/EJS
+[info] kqOLf7z5O-E: Downloading 1 format(s): 399+251
+[download] Destination: downloads\How to Use “Just” vs “Only” in English ｜ Easy Daily Conversation ｜ Beginner Podcast [kqOLf7z5O-E].f399.mp4
+[download] 100% of  141.54MiB in 00:00:25 at 5.49MiB/s
+[download] Destination: downloads\How to Use “Just” vs “Only” in English ｜ Easy Daily Conversation ｜ Beginner Podcast [kqOLf7z5O-E].f251.webm
+[download] 100% of   24.25MiB in 00:00:04 at 5.42MiB/s
+[Merger] Merging formats into "downloads\How to Use “Just” vs “Only” in English ｜ Easy Daily Conversation ｜ Beginner Podcast [kqOLf7z5O-E].webm"
+Deleting original file downloads\How to Use “Just” vs “Only” in English ｜ Easy Daily Conversation ｜ Beginner Podcast [kqOLf7z5O-E].f399.mp4 (pass -k to keep)
+Deleting original file downloads\How to Use “Just” vs “Only” in English ｜ Easy Daily Conversation ｜ Beginner Podcast [kqOLf7z5O-E].f251.webm (pass -k to keep)
